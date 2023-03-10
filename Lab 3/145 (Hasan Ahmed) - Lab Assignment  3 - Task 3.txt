@@ -1,0 +1,63 @@
+Include Irvine32.inc
+
+.data
+	num BYTE 3 DUP(8,9)
+	space BYTE " ",0
+	extra BYTE " ",0dh,0ah,0
+	txt BYTE "The array of DUP operator is : ",0
+
+.code
+main proc
+		mov edx,offset txt
+		mov eax,edx					;printing the string to mention the array
+		call writestring
+
+		mov eax,0
+		mov al,num[0]					;printing the values
+		call writeint
+
+		mov edx,offset space
+		mov eax,edx					;setting space in the string
+		call writestring
+
+		mov eax,0
+		mov al,num[1]					;printing the values
+		call writeint
+
+		mov eax,edx
+		call writestring			;setting space in the string
+
+		mov eax,0
+		mov al,num[2]					;printing the values
+		call writeint
+		
+		mov eax,edx
+		call writestring				;setting space in the string
+
+		mov eax,0
+		mov al,num[3]					;printing the values
+		call writeint
+
+		mov eax,edx
+		call writestring				;setting space in the string
+
+		mov eax,0
+		mov al,num[4]					;printing the values
+		call writeint
+
+		mov eax,edx
+		call writestring				;setting space in the string
+
+		mov eax,0
+		mov al,num[5]				;printing the values
+		call writeint
+
+		mov edx,offset extra				
+		mov eax,edx					;ending the line
+		call writestring
+
+		exit
+
+	invoke ExitProcess,0
+main endp
+end main

@@ -1,0 +1,56 @@
+Include Irvine32.inc
+
+.data
+	txt BYTE "The array is : ",0
+	array BYTE 145,103,247,205,156
+	space BYTE " ",0
+	extra BYTE " ",0dh,0ah,0
+
+.code
+main proc
+		mov edx,offset txt
+		mov eax,edx					;printing string to mention array
+		call writestring
+
+		mov eax,0
+		mov al,array[0]					;printing the 1st index of array
+		call writeint
+
+		mov edx,offset space
+		mov eax,edx					;setting space in the array
+		call writestring
+
+		mov eax,0
+		mov al,array[1]					;printing the 2nd index of array
+		call writeint
+
+		mov eax,edx
+		call writestring				;setting space in the array
+
+		mov eax,0
+		mov al,array[2]					;printing the 3rd index of array
+		call writeint
+
+		mov eax,edx
+		call writestring				;setting space in the array
+
+		mov eax,0
+		mov al,array[3]					;printing the 4th index of array
+		call writeint
+
+		mov eax,edx
+		call writestring				;setting space in the array
+
+		mov eax,0
+		mov al,array[4]					;printing the 5th index of array
+		call writeint
+
+		mov edx,offset extra				
+		mov eax,edx					;ending the line
+		call writestring
+
+		exit
+
+	invoke ExitProcess,0
+main endp
+end main

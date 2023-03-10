@@ -1,0 +1,71 @@
+Include Irvine32.inc
+
+.data
+num1 Dword ?
+num2 Dword ?
+temp Dword ?						;variables
+txt BYTE "Before Swapping : ",0
+text BYTE "After Swapping : ",0
+txt1 BYTE "First Number is : ",0
+txt2 BYTE "Second Number is : ",0
+
+.code
+swap proto, num1:Dword, num2:Dword		;proto
+
+main proc
+	mov edx, offset txt
+	mov eax, edx						;printing a statement
+	call writestring
+	call crlf
+
+	mov edx, offset txt1
+	mov eax, edx
+	call writestring
+	call readint						;taking input for first number
+	mov num1, eax
+	
+	mov edx, offset txt2
+	mov eax, edx
+	call writestring 
+	call readint						;taking input for second number
+	mov num2, eax
+	call crlf
+
+	invoke swap, num1, num2				;invoking the procedure
+
+	exit
+
+main endp
+
+swap proc uses ebx, num3: Dword, num4: Dword
+	mov ecx, num3
+	mov temp, ecx
+	mov ecx, num4						;swapping the 2 numbers
+	mov num3, ecx
+	mov ecx, temp
+	mov num4, ecx
+
+	mov edx, offset text
+	mov eax, edx
+	call writestring					;printing a statement
+	call crlf
+
+	mov edx, offset txt1
+	mov eax, edx
+	call writestring					;printing the first number after swap
+	mov eax, num3
+	call writeint
+
+	call crlf
+
+	mov edx, offset txt2
+	mov eax, edx
+	call writestring					;printing a statement
+	mov eax, num4
+	call writeint						;printing the second number after swapping
+
+	ret									;returning the value
+	
+swap endp
+
+end main

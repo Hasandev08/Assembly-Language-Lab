@@ -1,0 +1,106 @@
+Include Irvine32.inc
+
+.data
+num1 Dword ?									;variables								
+num2 Dword ?																	
+sign BYTE 2 DUP (?)																
+txt BYTE "The result is : ", 0
+txt1 BYTE "Enter the first number : ",0
+txt2 BYTE "Enter the second number : ",0
+txt3 BYTE "Enter the operation : ",0
+
+.code
+
+calculator proto, num1: Dword, num2: Dword, sign: BYTE			;prototype
+
+main PROC
+		mov edx, offset txt1
+		mov eax, edx
+		call writestring			;printing the statement
+		call readint				;taking input of 1st number
+		mov num1, eax
+
+		mov edx, offset txt2
+		mov eax, edx
+		call writestring			;printing the statement
+		call readint				;taking input of 2nd number
+		mov num2, eax
+
+		mov edx, offset txt3
+		mov eax, edx
+		call writestring			;printing the statement
+
+		mov edx, offset sign
+		mov ecx, 2
+		call readstring				;taking input of operation
+
+		mov edx, 0
+		mov edx, offset txt
+		mov eax, edx
+		call writestring			;printing a statement
+
+		invoke calculator, num1, num2, sign
+		call crlf
+
+	exit
+main endp
+
+calculator proc uses ebx, n1: Dword, n2: Dword, s: BYTE
+		mov al, s
+		cmp s, 43				;addition
+		je L1
+
+		mov al, s
+		cmp s, 45				;subtract
+		je L2
+
+		mov al, s
+		cmp s, 42				;multiply
+		je L3
+
+		mov al, s
+		cmp s, 47				;divide
+		je L4
+
+		mov al, s
+		cmp s, 38				;mod
+		je L5
+
+	L1:
+		mov eax, n1
+		add eax, n2				
+		call writeint			;printing the sum
+		ret
+
+	L2:
+		mov eax, n1
+		sub eax, n2
+		call writeint			;printing the difference
+		ret
+
+	L3:
+		mov eax, n1
+		mov ebx, n2
+		mul ebx					;printing the product
+		call writeint
+		ret
+
+	L4:
+		mov edx, 0
+		mov eax, n1
+		mov ebx, n2
+		div ebx
+		call writeint			;printing the result after division
+		ret
+
+	L5:
+		mov edx, 0 
+		mov eax, n1
+		mov ebx, n2
+		div ebx
+		mov eax, edx
+		call writeint			;printing the mod
+		ret
+
+calculator endp
+end main

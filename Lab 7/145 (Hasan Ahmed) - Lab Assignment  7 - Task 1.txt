@@ -1,0 +1,111 @@
+Include Irvine32.inc
+
+.data														;variables
+array Dword 4,3,1,8,6,9
+max Dword ?
+min Dword ?
+txt BYTE "Array : ",0
+txt1 BYTE "Minimum number is : ",0
+txt2 BYTE "Maximum number is : ",0
+
+.code
+max proto, array: ptr Dword								;prototype 
+min proto, array: ptr Dword								;prototype 
+
+main PROC
+		mov edx, OFFSET txt
+		mov eax,edx
+		call writestring
+	
+		mov ecx, lengthof array
+		mov esi, offset array
+
+	Loop1:
+		mov eax,[esi]
+		call writeint											;displaying the array
+		add esi,4
+		LOOP Loop1
+		call crlf
+
+	invoke max, Addr array								
+	invoke min, Addr array								
+
+	exit
+main ENDP
+
+max proc uses ebx, arr: ptr Dword						
+		mov edx, OFFSET txt2
+		mov eax,edx
+		call writestring					;printing the statement
+
+		mov esi,offset array
+		mov eax,[esi]
+		mov ecx,lengthof array
+		cmp ecx,0												
+		je L1
+
+	Loop2:														
+		cmp ebx,[esi]				;loop
+		jl L4
+		jg L3
+
+	L4:
+		mov ebx,[esi]											 
+		cmp eax,ebx
+		mov eax,ebx											
+		add esi,4					;adding size of dword
+
+	L3:                                             
+		mov ebx,eax
+		mov eax,ebx
+		add esi,4					 ;adding size of dword
+		loop Loop2 
+
+	L1:
+		mov max,ebx
+		mov eax,max
+		call writeint		; displaying the maximum number
+		call crlf
+
+	ret
+
+max ENDP
+
+min proc uses ebx, arr: ptr Dword						
+		mov edx, OFFSET txt1
+		mov eax,edx
+		call writestring				;printing the statement
+
+		mov esi,offset array
+		mov eax,[esi]
+		mov eax,lengthof array
+		sub eax,1
+		mov ecx,eax
+		cmp ecx,1												
+		je L1
+
+	Loop2:							;loop				
+		cmp ebx,[esi]
+		jg L4
+		jl L3
+
+	L4:
+		mov ebx,[esi]											 
+		mov eax,ebx											
+		add esi,4         ;adding size of dword
+
+	L3:                                             
+		mov eax,ebx
+		add esi,4         ;adding size of dword
+		loop Loop2 
+	
+	L1:
+		mov min,ebx
+		mov eax,min
+		call writeint
+		call crlf
+
+	ret
+
+min ENDP
+END main

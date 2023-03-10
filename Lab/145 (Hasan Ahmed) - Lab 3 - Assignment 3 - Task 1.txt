@@ -1,0 +1,379 @@
+-------------------------------------------------------Using multiple variables-------------------------------------------------
+-------------------------------Program 1-----------------------------
+Question : (28-4)/(16-14)+4
+Include Irvine32.inc
+
+.data
+num1 dword ?
+num2 dword ?
+
+.code
+main proc
+
+		mov eax,28
+		sub eax,4
+		mov num1,eax
+	
+		mov eax,16
+		sub eax,14
+		mov num2,eax
+
+		mov eax,num1
+		mov edx,0
+		div num2
+		add eax,4
+
+		call writeint
+		exit
+
+	invoke ExitProcess,0
+main endp
+end main
+
+-------------------------------Program 2----------------------------------
+Question : (9+4)x(8/4)-3
+
+Include Irvine32.inc
+
+.data
+num1 dword ?
+num2 dword ?
+
+.code
+main proc
+		mov eax,9
+		add eax,4
+		mov num1,eax
+
+		mov eax,8
+		mov num2,4
+		mov edx,0
+		div num2
+
+		mov num2,0
+		mov num2,eax
+	
+		mov eax,num1
+		mul num2
+		sub eax,3
+
+		call writeint
+		exit
+
+	invoke ExitProcess,0
+main endp
+end main
+
+--------------------------------Program 3------------------------------------
+Question : (4x9)+(10/5)x2+(4x5)-(4/2)
+
+Include Irvine32.inc
+
+.data
+num1 dword ?
+num2 dword ?
+num3 dword ?
+num4 dword ?
+
+.code
+main proc
+		mov eax, 4
+		mov num1,9
+		mul num1
+		mov num1,eax
+	
+		mov edx,0
+		mov eax, 10
+		mov num2, 5
+		div num2
+		mov num2,2
+		mul num2
+		mov num2,eax
+
+		mov eax, 5
+		mov num3,4
+		mul num3
+		mov num3,eax
+
+		mov eax,4
+		mov num4,2
+		div num4
+		mov num4,eax
+
+		mov eax,num1
+		add eax,num2
+		add eax,num3
+		sub eax,num4
+
+		call writeint
+		exit
+
+     	invoke ExitProcess,0
+main endp
+end main
+
+-------------------------------------Program 4----------------------------------------
+Question : (16/8)x3+(10-5)/5x(14+12)-10
+Include Irvine32.inc
+
+.data
+num1 dword ?
+num2 dword ?
+
+.code
+main proc
+		mov eax,16
+		mov edx,0
+		mov num1,8
+		mov num2,3
+		div num1
+		mul num2
+		mov num1,eax
+
+		mov eax,10
+		sub eax,5
+		mov num2,5
+		div num2
+		mov num2,eax
+
+		mov eax,14
+		add eax,12
+		mul num2
+		sub eax,10
+
+		add eax,num1
+
+		call writeint
+		exit
+
+	invoke ExitProcess,0
+main endp
+end main
+
+----------------------------------Program 5-------------------------------------
+Question : (8x9+4)x6/3+(72/8x2-14)-(14x9+4-20)
+
+Include Irvine32.inc
+
+.data
+num1 dword ?
+num2 dword ?
+num3 dword ?
+
+.code
+main proc
+		mov eax,8
+		mov num1,9
+		mul num1
+		add eax,4
+		mov num1,eax
+
+		mov eax,6
+		mov num2,3
+		mov edx,0
+		div num2
+		mul num1
+		mov num1,eax
+
+		mov eax,72
+		mov num2,8
+		div num2
+		mov num2,2
+		mul num2
+		sub eax,14
+		mov num2,eax
+
+		mov eax,14
+		mov num3,9
+		mul num3
+		add eax,4
+		sub eax,20
+		mov num3,eax
+
+		mov eax,num1
+		add eax,num2
+		sub eax,num3
+
+		call writeint
+		exit
+
+	invoke ExitProcess,0
+main endp
+end main
+
+---------------------------------------------------Using multiple registers-------------------------------------------
+-------------------------Program 1------------------------
+Question : (28-4)/(16-14)+4
+
+Include Irvine32.inc
+
+.code
+main proc
+		mov eax,28
+		sub eax,4
+
+		mov ebx,16
+		sub ebx,14
+		
+		mov edx,0
+		div ebx
+		add eax,4
+
+		call writeint
+		exit
+
+	invoke ExitProcess,0
+main endp
+end main
+
+------------------------Program 2---------------------------
+Question : (9+4)x(8/4)-3
+
+Include Irvine32.inc
+
+.code
+main proc
+		mov ebx,9
+		add ebx,4
+
+		mov eax,8
+		mov edx,0
+		mov ecx,4
+		div ecx
+		
+		mul ebx
+		sub eax,3
+
+		call writeint
+		exit
+
+	invoke ExitProcess,0
+main endp
+end main
+
+------------------------Program 3-----------------------------
+Question : (4x9)+(10/5)x2+(4x5)-(4/2)
+
+Include Irvine32.inc
+
+.code
+main proc
+		mov eax,4
+		mov ebx,9
+		mul ebx
+		mov ebx,eax
+
+		mov eax,10
+		mov edx,0
+		mov ecx,5
+		div ecx
+		mov ecx,2
+		mul ecx
+		
+		add ebx,eax
+
+		mov eax,4
+		mov ecx,5
+		mul ecx
+
+		add ebx,eax
+
+		mov eax,4
+		mov ecx,2
+		div ecx
+
+		mov ecx,eax
+		mov eax,ebx
+		sub eax,ecx
+	
+		call writeint
+		exit
+
+	invoke ExitProcess,0
+main endp
+end main
+
+
+
+-------------------------Program 4-------------------------------
+Question : (16/8)x3+(10-5)/5x(14+12)-10
+
+Include Irvine32.inc
+
+.code
+main proc
+		mov eax,16
+		mov edx,0
+		mov ebx,8
+		div ebx 
+		mov ebx,3
+		mul ebx
+		mov ebx,eax
+
+		mov eax,10
+		sub eax,5
+		mov ecx,5
+		div ecx
+
+		mov ecx,14
+		add ecx,12
+		mul ecx
+		sub eax,10
+
+		add eax,ebx
+
+		call writeint
+		exit
+
+	invoke ExitProcess,0
+main endp
+end main
+
+-----------------------------Program 5----------------------------------
+Question : (8x9+4)x6/3+(72/8x2-14)-(14x9+4-20)
+
+Include Irvine32.inc
+
+.code
+main proc
+		mov eax,8
+		mov ebx,9
+		mul ebx
+		add eax,4
+		mov ebx,eax
+		
+		mov eax,6
+		mov ecx,3
+		mov edx,0
+		div ecx
+
+		mov ecx,eax
+		mov eax,ebx
+		mul ecx
+		mov ebx,eax
+
+		mov eax,72
+		mov ecx,8
+		div ecx
+		mov ecx,2
+		mul ecx
+		sub eax,14
+
+		add ebx,eax
+
+		mov eax,14
+		mov ecx,9
+		mul ecx
+		add eax,4
+		sub eax,20
+
+		mov ecx,eax
+		mov eax,ebx
+		sub eax,ecx
+
+		call writeint
+		exit
+
+	invoke ExitProcess,0
+main endp
+end main

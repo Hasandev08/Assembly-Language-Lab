@@ -1,0 +1,58 @@
+INCLUDE Irvine32.inc
+.data
+	fileName BYTE "index.txt",0		
+	Print_Message byte " Enter a : ",0		
+	str_Array BYTE 5000 DUP(?)		
+	filehandle DWORD ?				
+	MessageOnBox BYTE " Want a random number to be generated? ",0
+	Main_Heading BYTE "Main Heading ",0
+.code
+main proc 
+
+		 mov edx, OFFSET fileName
+    	 	 call CreateOutputFile				
+
+		 cmp eax, INVALID_HANDLE_VALUE
+		 je L1								
+
+		 mov edx,OFFSET str_Array					
+		 mov ecx,sizeof str_Array
+	   	 mov filehandle,eax		
+
+		 mov edx,OFFSET Print_Message
+		 call writestring		
+
+	 	 call readstring				
+
+		 mov ecx,eax				
+		 mov eax,filehandle
+		 call WriteToFile				
+
+	 jmp _exit									
+	 L1:
+		call WriteWindowsMsg			
+
+	_exit:
+		call CloseFile					
+
+		mov ebx, offset Main_Heading
+		
+		mov edx, offset MessageOnBox		
+		call msgboxask				
+
+		cmp eax,IDNO				
+		JE _exit1					
+		
+		mov eax, 100				
+		call RandomRange			
+		
+		call writeint					
+
+	 jmp _exit1
+	 L2:
+		call WriteWindowsMsg
+
+	_exit1:
+	invoke ExitProcess,0
+main endp
+end main

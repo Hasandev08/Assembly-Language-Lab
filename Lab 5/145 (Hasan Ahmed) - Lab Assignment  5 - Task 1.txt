@@ -1,0 +1,66 @@
+Include Irvine32.inc
+
+.data
+	txt BYTE "Enter the obtained marks ",0
+	txt1 BYTE "Enter the total marks ",0
+	txt2 BYTE "Pass",0				;strings to be printed on console
+	txt3 BYTE "Fail",0
+	txt4 BYTE "The Obtained %age is : ",0
+	txt5 BYTE "%",0
+	a dword ?
+	b dword ?					;variables to be used
+	d dword 50
+	e dword 100
+
+.code
+main proc
+		mov edx, offset txt
+		mov eax, edx				
+		call writestring			;taking input of obtained marks
+		call readint
+		mov a, eax
+
+		mov edx, offset txt1
+		mov eax, edx				
+		call writestring			;taking input of total marks
+		call readint
+		mov b, eax
+
+		call crlf				;ending the line
+
+		mov edx, offset txt4
+		mov eax, edx				;printing the string to show the %age
+		call writestring
+		
+		mov edx,0
+		mov eax, a
+		mul e					;printing the percentage obtained
+		div b
+		call writeint
+
+		mov edx, offset txt5
+		mov eax, edx				;printing the '%' sign
+		call writestring			
+		call crlf
+
+		cmp eax,d				;comparing the percentage with 50
+		jg M1					;if %age is greater than 50 it is passed to M1
+		jle M2					;if %age is less than aur equal to 50 it is passed to M1
+
+	M1:
+		mov edx, offset txt2
+		mov eax, edx
+		call writestring			;printing the string 'pass'
+		call crlf
+		exit					
+		
+	M2:
+		mov edx, offset txt3
+		mov eax, edx
+		call writestring			;printing the string 'fail'
+		call crlf
+		exit
+
+	invoke ExitProcess, 0
+main endp
+end main

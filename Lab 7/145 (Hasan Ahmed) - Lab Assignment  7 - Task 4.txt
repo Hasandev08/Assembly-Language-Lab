@@ -1,0 +1,54 @@
+Include Irvine32.inc
+
+.data
+num1 Dword ?
+num2 Dword 0						;variables
+txt BYTE "Enter the number : ",0
+mult BYTE " * ",0
+equal BYTE " = ",0
+
+.code
+table proto, num1: Dword			;prototype 
+
+main PROC
+		mov edx, offset txt
+		mov eax, edx
+		call writestring			;printing a statement
+		call readint				;taking input
+		mov num1, eax
+
+	invoke table, num1
+
+	exit
+main endp
+
+table proc uses ebx, n1: Dword
+		mov ecx, 10				;passing how many times the loop should be executed
+
+	Loop1:						;loop
+		mov eax, n1
+		call writeint			;printing the 1st number of the table
+
+		mov edx, offset mult
+		mov eax, edx
+		call writestring		;printing the asteric (*) of the tables
+
+		inc num2				;incrementing the times portion of the table
+
+		mov eax, num2
+		call writeint			;printing the times portion of table
+
+		mov edx, offset equal
+		mov eax, edx
+		call writestring		;printing the equal sign
+
+		mov eax, n1
+		mul num2
+		call writeint			;printing the number as a result of multiplication
+		call crlf
+	
+	LOOP Loop1					;ending the loop
+	ret							;returning the value
+
+table endp
+end main

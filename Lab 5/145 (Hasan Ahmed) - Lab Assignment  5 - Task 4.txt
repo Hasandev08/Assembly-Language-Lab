@@ -1,0 +1,27 @@
+Include Irvine32.inc
+
+.data
+	a dword 0
+	b dword 0				;declaring the integers
+	counter dword ?
+
+.code
+main proc
+	mov ecx, 4				;moving '4' in ecx so that outer loop runs 4 times
+	Loop1:
+		inc a
+		mov counter, ecx
+		mov ecx, a			;moving 'a' in ecx so that inner loop ma run different times at each turn
+		Loop2:
+			mov eax, b
+			call writeint		;printing the numbers
+			inc b
+		Loop Loop2			;ending the inner loop
+		call crlf			;ending the line
+		mov ecx, counter
+	Loop Loop1				;ending the outer loop
+	exit
+
+	invoke ExitProcess, 0
+main endp
+end main

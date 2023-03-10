@@ -1,0 +1,45 @@
+Include Irvine32.inc
+
+.data
+num Dword ?
+divide Dword 2						;variables
+txt BYTE "Enter the number : ",0			
+txt1 BYTE "The number is even ",0
+txt2 BYTE "The number is odd ",0
+
+.code
+number proto, num: Dword			;prototype
+
+main PROC
+		mov edx, offset txt
+		mov eax, edx			
+		call writestring			;printing a string
+		call readint				;taking input
+		mov num, eax
+
+		invoke number, num
+		call crlf
+	exit
+main endp
+
+number proc uses ebx, n: Dword
+		mov eax, n
+		mov edx, 0					;getting the remainder after dividing
+		div divide					
+		cmp edx, 1					;checking the remainder after division
+		je L2
+
+	L1:
+		mov edx, offset txt1
+		mov eax, edx				;printing this string if number is even 
+		call writestring
+		ret
+
+	L2:
+		mov edx, offset txt2
+		mov eax, edx
+		call writestring			;printing this string if number is odd
+		ret
+
+number endp
+end main

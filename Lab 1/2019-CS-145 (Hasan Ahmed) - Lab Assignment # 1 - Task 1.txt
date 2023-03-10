@@ -1,0 +1,25 @@
+Include Irvine32.inc
+
+.data
+value1 dword ?
+value dword 9
+
+.code
+main proc
+		mov eax,10
+		sub eax,7
+		mov value1,eax
+
+		mov eax,5
+		add eax,6
+		
+		mul value1
+		mul value
+
+		call writeint
+		call readint
+		exit
+
+	invoke ExitProcess,0
+main endp
+end main

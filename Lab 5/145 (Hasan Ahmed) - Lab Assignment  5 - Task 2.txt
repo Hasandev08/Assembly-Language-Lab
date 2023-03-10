@@ -1,0 +1,27 @@
+Include Irvine32.inc
+
+.data
+	txt BYTE "*",0			;declaring the string
+	a dword 0
+	count dword ?
+
+.code
+main proc
+	mov ecx, 5			;passing the value to outer loop to run that many times
+	Loop1:
+		inc a			;incrementing the value present in a 
+		mov count, ecx
+		mov ecx, a		;Passing the value in a to ecx so that inner loop may run different times on each turn
+			Loop2:
+				mov edx, offset txt
+				mov eax, edx		;printing the string
+				call writestring
+			Loop Loop2			;ending the inner loop
+		call crlf				;ending the line
+		mov ecx, count
+	Loop Loop1				;ending the outer loop
+	exit
+
+	invoke ExitProcess, 0
+main endp
+end main

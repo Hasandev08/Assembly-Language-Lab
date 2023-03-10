@@ -1,0 +1,80 @@
+Include Irvine32.inc
+
+.data
+	txt BYTE "Hasan",0							
+	space BYTE " ",0
+	extra BYTE " ",0dh,0ah,0
+	text BYTE "The string is : ",0
+	text2 BYTE "The ASCII values of the characters of string is (respectively) : ",0
+
+.code
+main proc
+		mov edx,offset text
+		mov eax,edx					;printing the string to mention the array
+		call writestring
+
+		mov al,'H'					
+		call writechar					;printing 1st character
+
+		mov al,'a'					
+		call writechar					;printing 2nd character
+
+		mov al,'s'					
+		call writechar					;printing 3rd character	
+
+		mov al,'a'
+		call writechar					;printing 4th character
+
+		mov al,'n'
+		call writechar					;printing 5th character
+
+		mov edx,offset extra				
+		mov eax,edx					;ending the line
+		call writestring
+
+		mov edx,offset text2
+		mov eax,edx					;printing the string to mention the printing of ASCII values
+		call writestring
+
+		mov eax,0
+		mov al,txt[0]					;printing the ASCII values of the characters 
+		call writeint 
+
+		mov edx,offset space
+		mov eax,edx					;setting space between the ASCII values
+		call writestring
+
+		mov eax,0
+		mov al,txt[1]					;printing ASCII value of 2nd character
+		call writeint
+
+		mov eax,edx
+		call writestring				;setting space between the ASCII values
+		
+		mov eax,0
+		mov al,txt[2]					;printing ASCII value of 3rd character
+		call writeint
+
+		mov eax,edx
+		call writestring				;setting space between the ASCII values
+
+		mov eax,0
+		mov al,txt[3]					;printing ASCII value of 4th character
+		call writeint
+
+		mov eax,edx
+		call writestring				;setting space between the ASCII values
+
+		mov eax,0
+		mov al,txt[4]					;printing ASCII value of 5th character
+		call writeint
+
+		mov edx,offset extra				
+		mov eax,edx					;ending the line
+		call writestring
+		
+		exit
+
+	invoke ExitProcess,0
+main endp
+end main

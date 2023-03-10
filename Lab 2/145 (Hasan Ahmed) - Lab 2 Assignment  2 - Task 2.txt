@@ -1,0 +1,15 @@
+Include Irvine32.inc
+
+.data
+txt byte "Dirilis Ertugrul ",0				;string to be printed on console
+
+.code
+main proc
+	mov edx,offset txt				;moving the string into registers
+	mov eax, edx
+
+	call writestring				;printing the string on console
+
+	invoke ExitProcess,0
+main endp
+end main

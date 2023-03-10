@@ -1,0 +1,24 @@
+Include Irvine32.inc
+
+.code
+main proc
+		mov eax,4
+		mov ebx,5
+		mul ebx
+		mov ebx,eax
+
+		mov eax,7
+		mov edx,21
+		mul edx
+		add eax,3
+
+		mov edx,eax
+		mov eax,ebx
+
+		sub eax,edx
+
+		call writeint
+		call readint
+	invoke ExitProcess,0
+main endp
+end main

@@ -1,0 +1,45 @@
+Include Irvine32.inc
+
+.data
+num Dword ?							;variables
+txt BYTE "Enter the number : ",0
+txt1 BYTE "The factorial is : ",0
+
+factorial proto, num: Dword			;proto
+
+.code
+main proc
+		mov edx, offset txt
+		mov eax, edx
+		call writestring			;printing a statement
+		call readint				;taking input from the user
+		mov num, eax
+
+		invoke factorial, num
+		call crlf
+
+	exit
+main endp
+
+factorial proc uses ebx, n: Dword
+		mov edx, offset txt1
+		mov eax, edx
+		call writestring			;printing a statement
+
+		mov eax, n
+		mov ecx, n
+
+	Loop1:							;loop
+		cmp ecx, 1
+		je L1						;moving the pointer to L1
+		dec n
+		mul n
+
+	LOOP loop1						;ending the loop
+
+	L1:
+		call writeint				;printing the factorial
+		ret
+
+factorial endp
+end main

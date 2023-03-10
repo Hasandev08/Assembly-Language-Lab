@@ -1,0 +1,46 @@
+Include Irvine32.inc
+
+.data
+a dword ?
+b dword ?
+
+txt byte "Enter 1st number : ",0				;asking the user to print numbers
+txt1 byte "Enter 2nd number : ",0	
+
+ans byte "Quoitent : ",0					;string to differentiate quiotent and remainder
+ans1 byte "   Remainder : ",0
+
+.code
+main proc
+		mov edx,offset txt
+		call writestring				;asking user to input 1st number
+		call readint
+		mov a, eax
+		
+		mov edx,offset txt1
+		call writestring				;asking user to input 2nd number
+		call readint
+		mov b, eax
+
+		mov edx,offset ans				;printing the string quiotent
+		call writestring
+
+		mov edx, 0
+		mov eax, a
+		mov ebx, b					;printing quiotent as a result of dividing the 2 numbers
+		div ebx
+		call writeint
+
+		mov edx,offset ans1				;printing the string remainder
+		call writestring
+		
+		mov edx, 0
+		mov eax, a
+		mov ebx, b					;printing remainder as a result of dividing the 2 numbers
+		div ebx
+		mov eax, edx
+		call writeint
+
+	invoke ExitProcess,0
+main endp
+end main

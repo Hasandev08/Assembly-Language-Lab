@@ -1,0 +1,54 @@
+Include Irvine32.inc
+
+.data
+	starray BYTE "Size of integer array is : ",0
+	sttxt BYTE "Size of string array is : ",0
+	stnum BYTE "Size of array with DUP operator is : ",0
+	array BYTE 145,103,247,205,156
+	txt BYTE "Hasan",0
+	num BYTE 6 DUP(8,9)
+	extra BYTE " ",0dh,0ah,0
+	
+.code
+main proc
+		mov edx,offset starray
+		mov eax,edx					;printing the string for integer array
+		call writestring
+
+		mov eax,0
+		mov al,sizeof array				;printing the size of integer array
+		call writeint
+
+		mov edx,offset extra				
+		mov eax,edx					;ending the line
+		call writestring
+
+		mov edx,offset sttxt				
+		mov eax,edx					;printing the string for string array
+		call writestring
+
+		mov eax,0
+		mov al,sizeof txt				;printing the size of string array
+		call writeint
+
+		mov edx,offset extra				
+		mov eax,edx					;ending the line
+		call writestring
+
+		mov edx,offset stnum
+		mov eax,edx					;printing the string for array with DUP operator 
+		call writestring
+
+		mov eax,0
+		mov al,sizeof num				;printing the size of array with DUP operator
+		call writeint
+
+		mov edx,offset extra				
+		mov eax,edx					;ending the line
+		call writestring
+
+		exit
+
+	invoke ExitProcess,0
+main endp
+end main
